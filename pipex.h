@@ -9,11 +9,8 @@
 #include <string.h>
 // #include <bsd/string.h>
 
-#define W_FD 1
-#define R_FD 0
 
-#define FILE_NAME "outfile"
-
+int     check_outfile(char *out);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 static  char	**alloc(int count_words, char c, char const *s, char **split);
