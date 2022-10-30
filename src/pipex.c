@@ -1,57 +1,76 @@
-#include "pipex.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/29 08:20:39 by hbernard          #+#    #+#             */
+/*   Updated: 2022/10/30 16:47:45 by hbernard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char *get_path(char *argv)
+#include	"pipex.h"
+
+void	free_split(char **command)
 {
-    char *path;
-    char **command;
+	int		i;
 
-    command = ft_split(argv, ' ');
-    path = ft_strjoin("/bin/", command[0]);
-    return (path);
+	i = 0;
+	while (command[i])
+		free(command[i++]);
+	free(command);
 }
 
-char **get_args(char *argv)
+char	*get_path(char *argv)
 {
-    char    **str;
-    size_t  argv_size;
-    int     i;
+	char	*path;
+	char	**command;
 
-    argv_size = strlen(argv);
-    str = calloc(sizeof(argv) , argv_size);
-    *str = strdup(argv);
-    str = ft_split(str[0],' ');
-    return str;
+	command = ft_split(argv, ' ');
+	path = ft_strjoin("/bin/", command[0]);
+	free_split(command);
+	return (path);
 }
 
-void close_fd(int *fd)
+char	**get_args(char *argv)
 {
-    int     i;
-    
-    i = 0;
-    while(i < 2)
-        close(fd[i++]);
+	char	**str;
+	size_t	argv_size;
+
+	argv_size = ft_strlen(argv);
+	str = ft_calloc(sizeof(argv), argv_size);
+	*str = ft_strdup(argv);
+	str = ft_split(str[0], ' ');
+	return (str);
 }
 
-int main(int argc, char **argv)
+void	close_fd(int *fd)
 {
-    int     pid;
-    int     fd1[2];
-    int     fd2[2];
-    int     fd_out;
+	int	i;
 
-    pipe(fd1);
-    pid = fork();
-    if(pid == 0)
-    {
-        if(read_file(fd1, argv[1]) == -1)
-            write(1,"0 outfile\n",10);
-    }
-    pipe(fd2);
-    pid = fork();
-    if(pid == 0)
-        if(access(argv[1], F_OK) == 0)
-            child_proc(fd1, fd2, argv[2]);
-    if(access(argv[1], F_OK) == 0)
-        parent_proc(fd1,fd2,argv[3], argv[4]);
-    return (0);
+	i = 0;
+	while (i < 2)
+		close(fd[i++]);
+}
+
+int	main(int argc, char **argv)
+{
+	int	pid;
+	int	fd1[2];
+	int	fd2[2];
+	int	fd_out;
+
+	fd_out = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	check_args(argc, argv);
+	pipe(fd1);
+	pid = fork();
+	if (pid == 0)
+		read_file(fd1, argv[1]);
+	pipe(fd2);
+	pid = fork();
+	if (pid == 0)
+		child_proc(fd1, fd2, argv[2]);
+	parent_proc(fd1, fd2, argv[3], fd_out);
+	return (0);
 }
