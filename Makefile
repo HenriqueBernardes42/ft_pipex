@@ -13,17 +13,23 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 FLAGS = -Wall -Wextra -Werror 
 CC = cc
 
-all: $(NAME)
+all: dir $(NAME)
 
-$(NAME): dir $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) libft.a -I $(INCLUDE) -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) $(FLAGS) libft.a -I $(INCLUDE) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) -c $< -I $(INCLUDE) -o $@
 
 dir:
-	mkdir $(OBJ_DIR)
-
+	@mkdir -p $(OBJ_DIR)
 
 clean:
 	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	rm $(NAME)
+
+re: fclean all
+
+.PHONY: all dir clean fclean re
