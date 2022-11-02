@@ -1,0 +1,9 @@
+total 88
+drwxr-xr-x 2 coder coder  4096 Oct 31 02:02 includes
+-rw-r--r-- 1 coder coder     0 Nov  1 04:31 infile
+-rw-r--r-- 1 coder coder 49460 Oct 31 02:02 libft.a
+-rw-r--r-- 1 coder coder   535 Nov  1 04:22 Makefile
+drwxr-xr-x 2 coder coder  4096 Nov  1 04:31 obj
+-rw-r--r-- 1 coder coder     0 Nov  1 04:31 outfile
+-rwxr-xr-x 1 coder coder 17248 Nov  1 04:31 pipex
+drwxr-xr-x 2 coder coder  4096 Nov  1 01:06 src

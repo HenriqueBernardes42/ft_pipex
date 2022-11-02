@@ -6,80 +6,63 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:23:36 by hbernard          #+#    #+#             */
-/*   Updated: 2022/10/30 17:28:31 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/02 05:19:14 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**create_arg(char **arg, char *arg1, char *arg2)
-{
-	arg = ft_calloc(4, sizeof(char *));
-	arg[0] = arg1;
-	arg[1] = arg2;
-	arg[2] = NULL;
-	return (arg);
-}
+char *define_path(char *arg,char **envp);
+char **define_command(char *arg);
 
-void	child_proc(int *fd1, int *fd2, char *argv)
+void exec_command(char **argv, char **envp)
 {
-	char	*path;
+	int		fd[2];
+	int		pid;
 
-	path = get_path(argv);
-	if (access(path, F_OK) == -1)
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
 	{
-		perror("");
-		free(path);
-		exit(0);
+		close(fd[0]);
+		dup2(fd[1], STDOUT_FILENO);
+		execve(define_path(argv[2], envp),define_command(argv[2]), NULL);
 	}
-	free(path);
-	dup2(fd1[0], STDIN_FILENO);
-	close_fd(fd1);
-	dup2(fd2[1], STDOUT_FILENO);
-	close_fd(fd2);
-	execve(get_path(argv), get_args(argv), NULL);
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO );
+	execve(define_path(argv[3], envp),define_command(argv[3]), NULL);
 }
 
-void	parent_proc(int *fd1, int *fd2, char *argv, int fd_out)
-{
-	char	*path;
 
-	path = get_path(argv);
-	if (access(path, F_OK) == -1)
+char *define_path(char *arg,char **envp)
+{
+	char	**command;
+	char	**path_plitted;
+	char	*joined;
+	int		i;
+
+	i = 0;
+	command = ft_split(arg, ' ');
+	while (envp[++i])
 	{
-		free(path);
-		perror("comand not found \n");
-		exit(127);
+		if (ft_strncmp("PATH=", envp[i] , 5) == 0)
+		{	
+			path_plitted = ft_split(envp[i], ':');
+			i = 0;
+			command[0] = ft_strjoin("/", command[0]);
+			while(access(joined, F_OK) == -1)
+				joined = ft_strjoin(path_plitted[++i], command[0]);
+			break;
+		}
 	}
-	free(path);
-	close_fd(fd1);
-	dup2(fd2[0], STDIN_FILENO);
-	close_fd(fd2);
-	dup2(fd_out, STDOUT_FILENO);
-	close(fd_out);
-	execve(get_path(argv), get_args(argv), NULL);
+	return (joined);
 }
 
-int	read_file(int *fd1, char *infile)
+char **define_command(char *arg)
 {
-	int		fd;
-	int		size_file;
 	char	**str;
-	char	**arg;
+	size_t	argv_size;
 
-	arg = NULL;
-	arg = create_arg(arg, "cat", infile);
-	str = ft_split(infile, ' ');
-	size_file = ft_strlen(str[0]);
-	fd = access(infile, F_OK);
-	if (fd == -1)
-	{
-		free(str);
-		perror("");
-		exit(0);
-	}
-	dup2(fd1[1], STDOUT_FILENO);
-	close_fd(fd1);
-	execve("/bin/cat", arg, NULL);
-	return (1);
+	str = ft_split(arg, ' ');
+	return (str);
 }

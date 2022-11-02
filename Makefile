@@ -6,17 +6,21 @@ NAME = pipex
 SRC = \
 	$(SRC_DIR)/process.c \
 	$(SRC_DIR)/pipex.c \
-	$(SRC_DIR)/check.c 
+	$(SRC_DIR)/check.c \
+	$(SRC_DIR)/handle_files.c \
+	$(SRC_DIR)/libft.c 
+
+
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-FLAGS = -Wall -Wextra -Werror 
+# FLAGS = -Wall -Wextra -Werror 
 CC = cc
 
 all: dir $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) $(FLAGS) libft.a -I $(INCLUDE) -o $(NAME)
+	$(CC) $(OBJ) libft.a -I $(INCLUDE) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) -c $< -I $(INCLUDE) -o $@
