@@ -1,4 +1,5 @@
 SRC_DIR = ./src
+LIBFT_DIR = ./libft
 OBJ_DIR = ./obj
 INCLUDE = ./includes
 NAME = pipex
@@ -6,9 +7,15 @@ NAME = pipex
 SRC = \
 	$(SRC_DIR)/process.c \
 	$(SRC_DIR)/pipex.c \
-	$(SRC_DIR)/check.c \
-	$(SRC_DIR)/handle_files.c \
-	$(SRC_DIR)/libft.c 
+	$(SRC_DIR)/free.c \
+	$(LIBFT_DIR)/ft_strncmp.c \
+	$(LIBFT_DIR)/ft_strjoin.c \
+	$(LIBFT_DIR)/ft_strlen.c \
+	$(LIBFT_DIR)/ft_calloc.c \
+	$(LIBFT_DIR)/ft_strlcat.c \
+	$(LIBFT_DIR)/ft_bzero.c \
+	$(LIBFT_DIR)/ft_memset.c \
+	$(LIBFT_DIR)/ft_strlcpy.c 
 
 
 
@@ -20,7 +27,7 @@ CC = cc
 all: dir $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) libft.a -I $(INCLUDE) -o $(NAME)
+	$(CC) $(OBJ) -I $(INCLUDE) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) -c $< -I $(INCLUDE) -o $@

@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 18:43:40 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/02 05:18:55 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/03 07:31:04 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,21 @@
 #define IN 1
 #define OUT 4
 #define FIRST_ARG 2
-#define SAECOND_ARG 1
+#define SECOND_ARG 3
 
-int		check_outfile(char *out);
+#define READ 0 
+#define WRITE 1
+
+#define STDIN STDIN_FILENO
+#define STDOUT STDOUT_FILENO
+
+char	**pip_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	**ft_split(char const *s, char c);
-void	child_proc(int *fd1, int *fd2, char *argv);
-void	parent_proc(int *fd1, int *fd2, char *argv, int fd_out);
-int		read_file(int *fd1, char *infile);
-void	close_fd(int *fd);
-char	*get_path(char *argv);
-char	**get_args(char *argv);
-int		check_command(char *argv);
-int		check_args(int argc, char **argv);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strdup(const char *s);
-int		handle_files(int *file, char *arg, int flag);
-size_t	ft_strlen(const char *s);
-void	exec_command(char **argv, char **envp);
-
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+void	exec_command(char **argv, char **envp);
+void	free_alloc(char **str);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 
 #endif
