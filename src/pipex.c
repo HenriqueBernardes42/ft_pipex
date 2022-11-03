@@ -21,8 +21,8 @@ int	main(int argc, char **argv, char **envp)
 	int	in;
 	int	out;
 	
-	in = handle_files(&in, argv[IN], IN);
 	out = handle_files(&out, argv[OUT], OUT);
+	in = handle_files(&in, argv[IN], IN);
 	dup2(in, STDIN);
 	dup2(out, STDOUT);
 	exec_command(argv, envp);
@@ -43,12 +43,19 @@ int handle_files(int *file, char *arg, int flag)
 	if(flag == IN)
 	{
 		if (access(arg, F_OK) != -1)
-			return (open(arg, O_WRONLY ));
+			return (open(arg, O_RDONLY ));
+		else
+		{
+			perror("");
+			exit(1);
+		}
 	}
 	else if (flag == OUT)
 	{
-		if (access(arg, W_OK | X_OK) == -1)
-			return (open(arg, O_CREAT | O_WRONLY | O_TRUNC, 0644));
+		if (access(arg, F_OK) == -1)
+		{
+			return open(arg, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		}
 		else
 			return (open(arg, O_TRUNC, 0644));
 	}

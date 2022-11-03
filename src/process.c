@@ -32,10 +32,16 @@ void exec_command(char **argv, char **envp)
 		close(fd[WRITE]);
 		execve(define_path(argv[FIRST_ARG], envp),pip_split(argv[FIRST_ARG],' '), NULL);
 	} 
+	pid = fork();
+	if (pid == 0)
+	{
+		close(fd[WRITE]);
+		dup2(fd[READ], STDIN );
+		close(fd[READ]);
+		execve(define_path(argv[SECOND_ARG], envp),pip_split(argv[SECOND_ARG],' '), NULL);
+	}
 	close(fd[WRITE]);
-	dup2(fd[READ], STDIN );
 	close(fd[READ]);
-	execve(define_path(argv[SECOND_ARG], envp),pip_split(argv[SECOND_ARG],' '), NULL);
 }
 
 
@@ -137,7 +143,7 @@ char    **pip_split(char const *s, char c)
 	char	**split;
 	
 	words = ft_word_counter(s, c);
-	split = (char **)malloc(sizeof(char *) * (words + 1));
+	split = ft_calloc(sizeof(char *) , (words + 1));
 	if (!split)
 		return (NULL);
 	split_it(split, s, c, words);
@@ -146,6 +152,5 @@ char    **pip_split(char const *s, char c)
 		// ft_free_array(split, (void *)split);
 		return (NULL);
 	}
-	split[words] = NULL;
 	return (split);
 }
