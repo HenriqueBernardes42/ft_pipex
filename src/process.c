@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:23:36 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/03 07:49:59 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/03 08:01:02 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ char *define_path(char *arg,char **envp)
 
 	i = 0;
 	command = pip_split(arg, ' ');
-	while (envp[++i])
+	while (envp[i++])
 	{
 		if (ft_strncmp("PATH=", envp[i] , 5) == 0)
 		{	
 			path_plitted = pip_split(envp[i], ':');
 			i = 0;
 			command[0] = ft_strjoin("/", command[0]);
+			joined = command[0];
 			while(access(joined, F_OK) == -1)
 				joined = ft_strjoin(path_plitted[++i], command[0]);
 			break;

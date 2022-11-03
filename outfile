@@ -1,9 +1,6 @@
-totalx88
-drwxr-xr-xx2xcoderxcoderxx4096xOctx31x02:02xincludes
--rw-r--r--x1xcoderxcoderxxxxx0xNovxx1x04:31xinfile
--rw-r--r--x1xcoderxcoderx49460xOctx31x02:02xlibft.a
--rw-r--r--x1xcoderxcoderxxx535xNovxx1x04:22xMakefile
-drwxr-xr-xx2xcoderxcoderxx4096xNovxx1x04:31xobj
--rw-r--r--x1xcoderxcoderxxxxx0xNovxx1x04:31xoutfile
--rwxr-xr-xx1xcoderxcoderx17248xNovxx1x04:31xpipex
-drwxr-xr-xx2xcoderxcoderxx4096xNovxx1x01:06xsrc
+drwxr-xr-x 3 coder coder    4096 Nov  3 05:12 includes
+drwxr-xr-x 3 coder coder    4096 Nov  3 01:52 libft
+drwxr-xr-x 2 coder coder    4096 Nov  3 14:25 obj
+-rwxr-xr-x 1 coder coder   17856 Nov  3 14:26 pipex
+drwxr-xr-x 2 coder coder    4096 Nov  3 05:16 src
+drwxr-xr-x 4 coder coder    4096 Nov  3 05:06 tester
