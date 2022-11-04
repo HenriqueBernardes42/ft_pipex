@@ -1,9 +1,13 @@
-total 88
-drwxr-xr-x 2 coder coder  4096 Oct 31 02:02 includes
--rw-r--r-- 1 coder coder     0 Nov  1 04:31 infile
--rw-r--r-- 1 coder coder 49460 Oct 31 02:02 libft.a
--rw-r--r-- 1 coder coder   535 Nov  1 04:22 Makefile
-drwxr-xr-x 2 coder coder  4096 Nov  1 04:31 obj
--rw-r--r-- 1 coder coder     0 Nov  1 04:31 outfile
--rwxr-xr-x 1 coder coder 17248 Nov  1 04:31 pipex
-drwxr-xr-x 2 coder coder  4096 Nov  1 01:06 src
+total 48
+drwxr-xr-x 2 coder coder  4096 Nov  3 18:27 includes
+-rw-r--r-- 1 coder coder     0 Nov  4 05:42 infile
+drwxr-xr-x 2 coder coder  4096 Nov  3 15:28 libft
+-rw-r--r-- 1 coder coder   745 Nov  3 05:16 Makefile
+drwxr-xr-x 2 coder coder  4096 Nov  4 05:41 obj
+-rwxr-xr-x 1 coder coder 22144 Nov  4 05:41 pipex
+-rw-r--r-- 1 coder coder     0 Nov  4 05:41 saida
+-rw-r--r-- 1 coder coder     0 Nov  4 05:41 saida1
+-rw-r--r-- 1 coder coder     0 Nov  4 05:20 saida2
+-rw-r--r-- 1 coder coder     0 Nov  4 05:24 saidaclear
+drwxr-xr-x 2 coder coder  4096 Nov  3 05:16 src
+drwxrwxr-x 4 coder coder  4096 Nov  4 05:08 tester
