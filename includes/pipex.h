@@ -40,7 +40,7 @@ char	**pip_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-int	exec_command(char **argv, char **envp);
+void	exec_command(char **argv, char **envp);
 void	free_alloc(char **str);
 void	*ft_calloc(size_t nmemb, size_t size);
 

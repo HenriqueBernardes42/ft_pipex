@@ -17,6 +17,8 @@ void	free_alloc(char **command)
 	int		i;
 
 	i = 0;
+	if(command == NULL)
+		return ;
 	while (command[i])
 		free(command[i++]);
 	free(command);

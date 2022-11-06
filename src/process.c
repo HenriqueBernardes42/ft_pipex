@@ -20,11 +20,12 @@ char			*find_path(char **envp);
 
 
 
-int	exec_command(char **argv, char **envp)
+void	exec_command(char **argv, char **envp)
 {
 	int		fd[2];
 	int		pid;
 	char	*path;
+	int		status;
 
 	pipe(fd);
 	pid = fork();
@@ -34,9 +35,10 @@ int	exec_command(char **argv, char **envp)
 		dup2(fd[WRITE], STDOUT);
 		close(fd[WRITE]);
 		path = define_path(argv[FIRST_ARG], envp);
+		dprintf(2,"path == %s\n", path);
 		if(path == NULL)
 		{
-			perror("erro");
+			perror("argumento 1 invalido");
 			exit(1);
 		}
 		execve(path, pip_split(argv[FIRST_ARG],' '), NULL);
@@ -47,17 +49,19 @@ int	exec_command(char **argv, char **envp)
 		close(fd[WRITE]);
 		dup2(fd[READ], STDIN );
 		close(fd[READ]);
-		path = define_path(argv[FIRST_ARG], envp);
-		if(path == NULL)
+		path = define_path(argv[SECOND_ARG], envp);
+		if (path == NULL)
 		{
-			perror("erro");
-			exit(1);
+			perror("argumento 2 invalido\n");
+			exit(127);
 		}
 		execve(path,pip_split(argv[SECOND_ARG],' '), NULL);
 	}
 	close(fd[WRITE]);
 	close(fd[READ]);
-	return 0;
+	waitpid(pid, &status, 0);
+	if(WIFEXITED(status))
+		exit(WEXITSTATUS(status));
 }
 
 char *find_path(char **envp)
@@ -82,15 +86,15 @@ char *define_path(char *arg,char **envp)
 	int		i;
 
 	command = pip_split(arg,' ');
-	path = find_path(envp);
-	path_plitted = pip_split(path, ':');
-	command[0] = ft_strjoin("/", command[0]);
+	path_plitted = pip_split(find_path(envp), ':');
+	path = ft_strjoin("/", command[0]);
 	i = 0;
 	while (path_plitted[i])
 	{
-		joined = ft_strjoin(path_plitted[i], command[0]);
+		joined = ft_strjoin(path_plitted[i], path);
 		if (access(joined, F_OK) == OK)
 		{
+			free(path);
 			free_alloc(command);
 			free_alloc(path_plitted);
 			return (joined);
@@ -98,6 +102,7 @@ char *define_path(char *arg,char **envp)
 		free(joined);
 		++i;
 	}
+	free(path);
 	free_alloc(command);
 	free_alloc(path_plitted);
 	return NULL;

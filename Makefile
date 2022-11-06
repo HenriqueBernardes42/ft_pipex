@@ -22,15 +22,16 @@ SRC = \
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # FLAGS = -Wall -Wextra -Werror 
+FLAGS = -g
 CC = cc
 
 all: dir $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -I $(INCLUDE) -o $(NAME)
+	$(CC) $(OBJ) $(FLAGS) -I $(INCLUDE) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) -c $< -I $(INCLUDE) -o $@
+	$(CC) $(FLAGS) -c $< -I $(INCLUDE) -o $@
 
 dir:
 	@mkdir -p $(OBJ_DIR)
