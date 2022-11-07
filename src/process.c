@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:23:36 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/07 06:02:28 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/07 06:24:04 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	exec_command(char **argv, char **envp)
 {
 	int		fd[2];
 	int		pid;
-	char	*path;
 	int		status;
 
 	pipe(fd);

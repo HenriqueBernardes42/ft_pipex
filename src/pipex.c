@@ -6,14 +6,14 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:20:39 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/07 06:00:33 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/07 06:41:10 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"pipex.h"
 
 void	close_fd(int *fd);
-int		handle_files(int *file, char *arg, int flag);
+int		handle_files(char *arg, int flag);
 void	free_alloc(char **com1, char **com2, char *com3);
 
 int	main(int argc, char **argv, char **envp)
@@ -21,9 +21,14 @@ int	main(int argc, char **argv, char **envp)
 	int	in;
 	int	out;
 
+	if (argc != 5)
+	{
+		perror("to few arguments");
+		exit(0);
+	}
 	open(argv[OUT], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	in = handle_files(&in, argv[IN], IN);
-	out = handle_files(&out, argv[OUT], OUT);
+	in = handle_files(argv[IN], IN);
+	out = handle_files(argv[OUT], OUT);
 	dup2(in, STDIN);
 	dup2(out, STDOUT);
 	exec_command(argv, envp);
@@ -39,7 +44,7 @@ void	close_fd(int *fd)
 		close(fd[i++]);
 }
 
-int	handle_files(int *file, char *arg, int flag)
+int	handle_files(char *arg, int flag)
 {
 	if (flag == IN)
 	{
