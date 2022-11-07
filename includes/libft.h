@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 03:02:15 by hbernard          #+#    #+#             */
-/*   Updated: 2022/10/11 15:58:59 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/07 06:04:47 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 //ultimas atualizações
 size_t	ft_pow(int base, size_t power);
-int	ft_hex_to_int(char *hexadecimal);
+int		ft_hex_to_int(char *hexadecimal);
 
 #endif
