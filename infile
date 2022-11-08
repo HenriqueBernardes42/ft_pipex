@@ -1,0 +1,11 @@
+total 52
+-rw-r--r-- 1 coder coder   420 Nov  7 16:12 file1
+drwxr-xr-x 2 coder coder  4096 Nov  3 18:27 includes
+-rw-r--r-- 1 coder coder     0 Nov  7 18:06 infile
+-rw-r--r-- 1 coder coder   766 Nov  7 04:41 Makefile
+drwxr-xr-x 2 coder coder  4096 Nov  7 18:02 obj
+-rw-r--r-- 1 coder coder     0 Nov  7 18:05 outfile
+-rw-r--r-- 1 coder coder   260 Nov  7 16:13 outfile1
+-rwxr-xr-x 1 coder coder 22224 Nov  7 18:02 pipex
+drwxr-xr-x 2 coder coder  4096 Nov  7 04:38 pipex_libft
+drwxr-xr-x 2 coder coder  4096 Nov  7 04:24 src

@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:20:39 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/07 06:41:10 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/08 04:48:14 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 void	close_fd(int *fd);
 int		handle_files(char *arg, int flag);
 void	free_alloc(char **com1, char **com2, char *com3);
+void error_handling(int exit_n, char *error_message);
+
 
 int	main(int argc, char **argv, char **envp)
 {
 	int	in;
 	int	out;
 
-	if (argc != 5)
-	{
-		perror("to few arguments");
-		exit(0);
-	}
+	dprintf(1,"argc == %d\n", argc);
+	if (argc > 5)
+		error_handling(1,"too many arguments!");
+	if (argc < 5)
+		error_handling(1,"too few arguments");
 	open(argv[OUT], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	in = handle_files(argv[IN], IN);
 	out = handle_files(argv[OUT], OUT);
@@ -49,16 +51,16 @@ int	handle_files(char *arg, int flag)
 	if (flag == IN)
 	{
 		if (access(arg, F_OK) == -1)
-			exit(1);
+			perror("infile not exist!");
 		else if (access(arg, R_OK) == -1)
-			exit(0);
+			perror("infile perimission invalid!");
 		else
 			return (open(arg, O_RDONLY));
 	}
 	else if (flag == OUT)
 	{
-		if (access(arg, F_OK | W_OK) == -1)
-			exit(1);
+		if (access(arg, W_OK) == -1)
+			error_handling(1,"outfile permission invalid!");
 		else
 			return (open(arg, O_CREAT | O_WRONLY | O_TRUNC, 0644));
 	}
@@ -82,4 +84,10 @@ void	free_alloc(char **com1, char **com2, char *com3)
 		free(com2[i++]);
 	free(com2);
 	free(com3);
+}
+
+void error_handling(int exit_n, char *error_message)
+{
+	perror(error_message);
+	exit(exit_n);
 }
