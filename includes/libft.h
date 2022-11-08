@@ -6,14 +6,13 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 03:02:15 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/07 06:04:47 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:58:47 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 

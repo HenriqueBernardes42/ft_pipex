@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:23:36 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/08 04:48:44 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:54:00 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*define_path(char *arg, char **envp);
 char	*find_path(char **envp);
-void	child_process(int *fd, int fd_n, char *arg, char **envp);
+int		child_process(int *fd, int fd_n, char *arg, char **envp);
 
 void	exec_command(char **argv, char **envp)
 {
@@ -25,7 +25,9 @@ void	exec_command(char **argv, char **envp)
 	pipe(fd);
 	pid = fork();
 	if (pid == 0)
+	{
 		child_process(fd, STDOUT, argv[FIRST_ARG], envp);
+	}	
 	pid = fork();
 	if (pid == 0)
 		child_process(fd, STDIN, argv[SECOND_ARG], envp);
@@ -36,7 +38,7 @@ void	exec_command(char **argv, char **envp)
 		exit(WEXITSTATUS(status));
 }
 
-void	child_process(int *fd, int fd_n, char *arg, char **envp)
+int	child_process(int *fd, int fd_n, char *arg, char **envp)
 {
 	char	*path;
 	int		not_used;
@@ -50,10 +52,11 @@ void	child_process(int *fd, int fd_n, char *arg, char **envp)
 	close(fd[fd_n]);
 	path = define_path(arg, envp);
 	if (path == NULL && fd_n == STDOUT)
-		exit(1);
+		error_handling(1,"invalid first command\n");
 	if (path == NULL && fd_n == STDIN)
-		exit(127);
+		error_handling(127,"invalid second command\n");
 	execve(path, pipex_split(arg, ' '), NULL);
+	return 1;
 }
 
 char	*find_path(char **envp)
