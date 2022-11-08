@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 18:43:40 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/08 16:01:12 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:09:33 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <stdio.h>
 
 # define IN 1
 # define OUT 4
@@ -41,6 +42,5 @@ void	exec_command(char **argv, char **envp);
 void	free_alloc(char **com1, char **com2, char *com3);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	error_handling(int exit_n, char *error_message);
-
 
 #endif

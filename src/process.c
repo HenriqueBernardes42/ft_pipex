@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:23:36 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/08 15:54:00 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:09:13 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*define_path(char *arg, char **envp);
 char	*find_path(char **envp);
-int		child_process(int *fd, int fd_n, char *arg, char **envp);
+void	child_process(int *fd, int fd_n, char *arg, char **envp);
 
 void	exec_command(char **argv, char **envp)
 {
@@ -38,7 +38,7 @@ void	exec_command(char **argv, char **envp)
 		exit(WEXITSTATUS(status));
 }
 
-int	child_process(int *fd, int fd_n, char *arg, char **envp)
+void	child_process(int *fd, int fd_n, char *arg, char **envp)
 {
 	char	*path;
 	int		not_used;
@@ -52,11 +52,10 @@ int	child_process(int *fd, int fd_n, char *arg, char **envp)
 	close(fd[fd_n]);
 	path = define_path(arg, envp);
 	if (path == NULL && fd_n == STDOUT)
-		error_handling(1,"invalid first command\n");
+		error_handling(1, "invalid first command\n");
 	if (path == NULL && fd_n == STDIN)
-		error_handling(127,"invalid second command\n");
+		error_handling(127, "invalid second command\n");
 	execve(path, pipex_split(arg, ' '), NULL);
-	return 1;
 }
 
 char	*find_path(char **envp)

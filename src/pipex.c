@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:20:39 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/08 07:10:46 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:08:19 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 void	close_fd(int *fd);
 int		handle_files(char *arg, int flag, int out);
 void	free_alloc(char **com1, char **com2, char *com3);
-void error_handling(int exit_n, char *error_message);
-
+void	error_handling(int exit_n, char *error_message);
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,9 +23,9 @@ int	main(int argc, char **argv, char **envp)
 	int	out;
 
 	if (argc > 5)
-		error_handling(1,"too many arguments!");
+		error_handling(1, "too many arguments!");
 	if (argc < 5)
-		error_handling(1,"too few arguments");
+		error_handling(1, "too few arguments");
 	out = open(argv[OUT], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	in = handle_files(argv[IN], IN, out);
 	out = handle_files(argv[OUT], OUT, out);
@@ -52,12 +51,12 @@ int	handle_files(char *arg, int flag, int out)
 		if (access(arg, F_OK) == -1)
 		{
 			perror("infile not exist!");
-			return out;
+			return (out);
 		}
 		else if (access(arg, R_OK) == -1)
 		{
 			perror("infile perimission invalid!");
-			return out;
+			return (out);
 		}
 		else
 			return (open(arg, O_RDONLY));
@@ -65,7 +64,7 @@ int	handle_files(char *arg, int flag, int out)
 	else if (flag == OUT)
 	{
 		if (access(arg, W_OK) == -1)
-			error_handling(1,"outfile permission invalid!");
+			error_handling(1, "outfile permission invalid!");
 		else
 			return (open(arg, O_CREAT | O_WRONLY | O_TRUNC, 0644));
 	}
@@ -91,7 +90,7 @@ void	free_alloc(char **com1, char **com2, char *com3)
 	free(com3);
 }
 
-void error_handling(int exit_n, char *error_message)
+void	error_handling(int exit_n, char *error_message)
 {
 	perror(error_message);
 	exit(exit_n);
