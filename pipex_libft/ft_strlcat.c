@@ -6,11 +6,11 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 04:55:35 by hbernard          #+#    #+#             */
-/*   Updated: 2022/05/27 02:37:56 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:33:48 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {

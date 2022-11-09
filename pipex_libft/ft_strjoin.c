@@ -6,11 +6,11 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 04:14:13 by hbernard          #+#    #+#             */
-/*   Updated: 2022/05/13 03:17:48 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:33:44 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

@@ -8,6 +8,7 @@ SRC = \
 	$(SRC_DIR)/process.c \
 	$(SRC_DIR)/pipex.c \
 	$(SRC_DIR)/split.c \
+	$(SRC_DIR)/error.c \
 	$(LIBFT_DIR)/ft_strncmp.c \
 	$(LIBFT_DIR)/ft_strjoin.c \
 	$(LIBFT_DIR)/ft_strlen.c \
@@ -19,7 +20,7 @@ SRC = \
 
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 CC = cc
 
 all: dir $(NAME)

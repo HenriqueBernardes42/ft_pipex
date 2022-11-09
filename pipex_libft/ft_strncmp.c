@@ -6,11 +6,11 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 06:13:56 by hbernard          #+#    #+#             */
-/*   Updated: 2022/05/22 00:59:49 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:34:00 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

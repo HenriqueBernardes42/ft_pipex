@@ -6,11 +6,11 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 03:31:41 by hbernard          #+#    #+#             */
-/*   Updated: 2022/04/24 05:28:13 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:33:53 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
