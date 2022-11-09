@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:23:36 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/08 16:09:13 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/09 08:12:18 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,22 @@
 char	*define_path(char *arg, char **envp);
 char	*find_path(char **envp);
 void	child_process(int *fd, int fd_n, char *arg, char **envp);
+void	close_fd(int *fd);
 
-void	exec_command(char **argv, char **envp)
+
+void	exec_command(char **argv, char **envp, int in_OK)
 {
 	int		fd[2];
 	int		pid;
 	int		status;
 
 	pipe(fd);
-	pid = fork();
-	if (pid == 0)
+	if (in_OK)
 	{
-		child_process(fd, STDOUT, argv[FIRST_ARG], envp);
-	}	
+		pid = fork();
+		if (pid == 0)
+			child_process(fd, STDOUT, argv[FIRST_ARG], envp);
+	}
 	pid = fork();
 	if (pid == 0)
 		child_process(fd, STDIN, argv[SECOND_ARG], envp);
@@ -52,9 +55,9 @@ void	child_process(int *fd, int fd_n, char *arg, char **envp)
 	close(fd[fd_n]);
 	path = define_path(arg, envp);
 	if (path == NULL && fd_n == STDOUT)
-		error_handling(1, "invalid first command\n");
+		error_handling(1, arg);
 	if (path == NULL && fd_n == STDIN)
-		error_handling(127, "invalid second command\n");
+		error_handling(127, arg);
 	execve(path, pipex_split(arg, ' '), NULL);
 }
 
@@ -96,4 +99,13 @@ char	*define_path(char *arg, char **envp)
 	}
 	free_alloc(path_plitted, command, path);
 	return (NULL);
+}
+
+void	close_fd(int *fd)
+{
+	int	i;
+
+	i = 0;
+	while (i < 2)
+		close(fd[i++]);
 }

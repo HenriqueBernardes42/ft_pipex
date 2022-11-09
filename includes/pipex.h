@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 18:43:40 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/08 16:09:33 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/09 07:08:45 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define WRITE 1
 
 # define OK 0
+# define NO_EXIT -77
 
 # define STDIN STDIN_FILENO
 # define STDOUT STDOUT_FILENO
@@ -38,9 +39,11 @@ char	**pipex_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-void	exec_command(char **argv, char **envp);
+void	exec_command(char **argv, char **envp, int in_OK);
 void	free_alloc(char **com1, char **com2, char *com3);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	error_handling(int exit_n, char *error_message);
+size_t	ft_strlen(const char *s);
+
 
 #endif
