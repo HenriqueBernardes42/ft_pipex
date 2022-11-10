@@ -6,7 +6,7 @@
 /*   By: hbernard <hbernard@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 08:23:36 by hbernard          #+#    #+#             */
-/*   Updated: 2022/11/09 17:29:56 by hbernard         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:10:37 by hbernard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	child_process(int *fd, int fd_n, char *arg, char **envp);
 
 void	exec_command(char **argv, char **envp, int in_OK)
 {
-	int		fd[2];
+	int		*fd;
 	int		pid;
 	int		status;
 
+	fd = ft_calloc(3, sizeof(fd));
 	pipe(fd);
 	if (in_OK)
 	{
@@ -34,6 +35,7 @@ void	exec_command(char **argv, char **envp, int in_OK)
 		child_process(fd, STDIN, argv[SECOND_ARG], envp);
 	close(fd[WRITE]);
 	close(fd[READ]);
+	free(fd);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
